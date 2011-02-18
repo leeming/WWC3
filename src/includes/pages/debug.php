@@ -1,0 +1,1 @@
+<pre><?=var_dump($_SESSION['debug'])?></pre> 

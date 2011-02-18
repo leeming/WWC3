@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>mbMenu</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+  <script type="text/javascript" src="inc/jquery.min.js"></script>
+  <script type="text/javascript" src="inc/jquery.metadata.js"></script>
+  <script type="text/javascript" src="inc/mbMenu.js"></script>
+  <script type="text/javascript" src="inc/jquery.hoverIntent.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/menu2.css" media="screen" />
+
+  <style type="text/css">
+    body .style a{
+      color:gray;
+      font-family:sans-serif;
+      font-size:13px;
+      text-decoration:none;
+    }
+  </style>
+
+  <script type="text/javascript">
+
+    /*
+     * DEFAULT OPTIONS
+     *
+     options: {
+     template:"yourMenuVoiceTemplate",--> the url that returns the menu voices via ajax. the data passed in the request is the "menu" attribute value as "menuId"
+     additionalData:"",								--> if you need additional data to pass to the ajax call
+     menuSelector:".menuContainer",		--> the css class for the menu container
+     menuWidth:150,										--> min menu width
+     openOnRight:false,								--> if the menu has to open on the right insted of bottom
+     iconPath:"ico/",									--> the path for the icons on the left of the menu voice
+     hasImages:true,									--> if the menuvoices have an icon (a space on the left is added for the icon)
+     fadeInTime:100,									--> time in milliseconds to fade in the menu once you roll over the root voice
+     fadeOutTime:200,									--> time in milliseconds to fade out the menu once you close the menu
+     menuTop:0,												--> top space from the menu voice caller
+     menuLeft:0,											--> left space from the menu voice caller
+     submenuTop:0,										--> top space from the submenu voice caller
+     submenuLeft:4,										--> left space from the submenu voice caller
+     opacity:1,												--> opacity of the menu
+     shadow:false,										--> if the menu has a shadow
+     shadowColor:"black",							--> the color of the shadow
+     shadowOpacity:.2,								--> the opacity of the shadow
+     openOnClick:true,								--> if the menu has to be opened by a click event (otherwise is opened by a hover event)
+     closeOnMouseOut:false,						--> if the menu has to be cloesed on mouse out
+     closeAfter:500,									--> time in millisecond to whait befor closing menu once you mouse out
+     minZindex:"auto", 								--> if set to "auto" the zIndex is automatically evaluate, otherwise it start from your settings ("auto" or int)
+     hoverInted:0, 										--> if you use jquery.hoverinted.js set this to time in milliseconds to delay the hover event (0= false)
+     onContextualMenu:function(o,e){} --> a function invoked once you call a contextual menu; it pass o (the menu you clicked on) and e (the event)
+     },
+     */
+
+    $(function(){
+      $(".rootVoices").buildMenu(
+      {
+        template:"menuVoices.html",
+        additionalData:"pippo=1",
+        menuWidth:200,
+        openOnRight:false,
+        menuSelector: ".menuContainer",
+        iconPath:"ico/",
+        hasImages:true,
+        fadeInTime:100,
+        fadeOutTime:300,
+        adjustLeft:2,
+        minZindex:"auto",
+        adjustTop:10,
+        opacity:.95,
+        shadow:true,
+        shadowColor:"#ccc",
+        hoverIntent:0,
+        openOnClick:false,
+        closeOnMouseOut:true,
+        closeAfter:1000
+      });
+
+
+
+    }
+            );
+
+    //this function get the id of the element that fires the context menu.
+    function testForContextMenu(el){
+      if (!el) el= $.mbMenu.lastContextMenuEl;
+      alert("the ID of the element is:   "+$(el).attr("id"));
+    }
+
+  $.ajax({
+    url:"testFlash/test.html",
+    success:function(html){
+      $("#flashTest").html(html);
+    }
+  });
+
+  </script>
+
+</head>
+<body bgcolor="#ffffff">
+
+<div class="menustrip">
+	<div class="rootVoices">
+		<div class="rootVoice {menu: 'menu_account'}">Account</div>
+		<div class="rootVoice {menu: 'menu_games'}" >Games</div>
+		<div class="rootVoice {menu: 'menu_nav'}" >Nav</div>
+		<div class="rootVoice {menu: 'menu_dockable'}" >Dockables</div>
+		<div class="rootVoice {menu: 'menu_help'}" >Help</div>
+	</div>
+</div>
+
+
+
+<br/>
+<br/>
+
+
+
+
+<!-- menues -->
+<div id="menu_account" class="mbmenu">
+  <a rel="title" >Game Menu</a> <!-- menuvoice title-->
+
+  <a class="">Profile</a>
+  <a class="">Change Password</a>
+  <a class="">Premium</a>
+  <a rel="separator"> </a> <!-- menuvoice separator-->
+  <a href="logout.php" class="{img: 'logout_icon.png'}">Logout</a>
+</div>
+
+<div id="menu_games" class="mbmenu">
+  <a class="{menu: 'menu_mygames', img: 'icon_14.png'}">My Games</a>
+  <a class="">Browse</a>
+  <a class="">Make</a>
+</div>
+
+
+<div id="menu_nav" class="mbmenu">
+	<a>Buildings</a>
+	<a>Market</a>
+	<a class="{menu: 'submenu_overviews'}">Overview</a>
+	<a class="{menu: 'submenu_comms'}">Communication</a>
+	<a class="{menu: 'submenu_actions'}">Actions</a>
+	<a class="{menu: 'submenu_research'}">Research</a>
+	<a></a>
+	<a></a>
+</div>
+
+<div id="submenu_overviews" class="mbmenu">
+	<a>Genral</a>
+	<a>Troops</a>
+	<a>Production</a>
+	<a>Team</a>
+</div>
+
+<div id="submenu_comms" class="mbmenu">
+	<a>Mail</a>
+	<a>Forum</a>
+</div>
+
+<div id="submenu_actions" class="mbmenu">
+	<a>Move</a>
+	<a>Attack</a>
+	<a>Air Raid</a>
+	<a>Spy</a>
+</div>
+
+<div id="submenu_research" class="mbmenu">
+	<a>Queue</a>
+	<a>Tree</a>
+</div>
+
+<div id="menu_dockables" class="mbmenu">
+</div>
+
+<div id="menu_help" class="mbmenu">
+  <a rel="text" >
+	Please remember to look over the FAQs before using the help service
+  </a>
+  <a>FAQ</a>
+  <a>Game Guides</a>
+  <a>Help Centre</a>
+</div>
+<!-- end menues -->
+
+
+</body>
+</html>

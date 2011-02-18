@@ -1,0 +1,777 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title><?=SITE_TITLE?> - Lets go to War!</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+  <script type="text/javascript" src="ui/inc/jquery.min.js"></script>
+  <script type="text/javascript" src="ui/inc/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="ui/inc/jquery.metadata.js"></script>
+  <script type="text/javascript" src="ui/inc/mbContainer.js"></script>
+  <script type="text/javascript" src="ui/inc/mbMenu.js"></script>
+  <script type="text/javascript" src="ui/inc/jquery.hoverIntent.js"></script>
+  
+  <link rel="stylesheet" type="text/css" href="ui/css/menu2.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="ui/css/mbContainer.css" title="style"  media="screen"/>
+ 
+
+  <style type="text/css">
+    body, html {
+		margin:0px;
+		padding:0px;
+		background-color: #DDD;
+	}
+	
+   
+	body .style a{
+      color:gray;
+      font-family:sans-serif;
+      font-size:13px;
+      text-decoration:none;
+
+    }
+	
+	.wrapper{
+      font-family:Arial, Helvetica, sans-serif;
+      margin-top:0px;
+      margin-left:0px;
+	  padding: 0px;
+    }
+    .wrapper h1{
+      font-family:Arial, Helvetica, sans-serif;
+      font-size:26px;
+    }
+    .evidence{
+      color:gray;
+      padding:10px;
+      margin-right:5px;
+      margin-top:5px;
+      -moz-border-radius:10px;
+      -webkit-border-radius:10px;
+    }
+
+    #actions button{
+      padding:4px;
+      display:inline-block;
+      cursor:pointer;
+      font:12px/14px Arial, Helvetica, sans-serif;
+      color:#666;
+      border:1px solid #999;
+      background-color:#eee;
+      -moz-border-radius:10px;
+      -webkit-border-radius:10px;
+      -moz-box-shadow:#999 2px 0px 3px;
+      -webkit-box-shadow:#999 2px 0px 3px;
+      margin-bottom:4px;
+    }
+
+
+    :focus {
+      outline: 0;
+    }
+
+    #actions button:hover{
+      color:#aaa;
+      background-color:#eee;
+    }
+
+    #dock{
+      display:block;
+      padding-top:10px;
+      height:30px;
+    }
+    #dock img{
+      padding-right:10px;
+    }
+
+    #desk{
+      width:100%;
+    }
+
+    #desk td{
+      padding:5px;
+      -moz-border-radius:5px;
+      -webkit-border-radius:5px;
+    }
+    #mb_console{
+      padding:5px;
+      background:gainsboro;
+      -moz-border-radius:5px;
+      -webkit-border-radius:5px;
+      font-size:10px;
+      height:400px;
+      overflow:auto;
+    }
+	
+  div.row
+  {
+	clear: both;
+	padding-top: 5px;
+  }
+  
+  
+  div.row span.label
+  {
+	float: left;
+	width: 35%;
+	text-align: right;
+  }
+  
+  div.row span.input
+  {
+	float: right;
+	width: 60%;
+	margin-left: 5px;
+	text-align: left;
+  }
+  
+  div.row span.tableHeader
+  {
+	display:inline;
+	font-weight:bold;
+  }
+  
+  span.error
+  {
+	color: #f00;
+	font-weight: bold;
+  }
+	
+  div.news
+  {
+	border: 2px solid #FFF;
+	background-color: #333;
+	padding: 5px;
+	margin-bottom: 10px;
+  }
+  
+  div.news div.newsheader
+  {
+	color: #ff0;
+	border-bottom: 1px dotted #555;
+  }
+  
+  div.news div.newsheader span.title
+  {
+	font-weight: bold;
+	font-size: large;
+  }
+  
+  div.news div.newsbody
+  {
+	margin: 10px;
+  }
+  
+  div.news div.newsfooter
+  {
+	border-top: 1px dotted #555;
+	font-size: smaller;
+  }
+	
+  div.comments
+  {
+	border: 1px thin #F00;
+  }
+  div.comments div.userComment
+  {
+	padding:5px;
+	margin-left:10px;
+	border: 1px solid #00f;
+  }
+  div.comments div.userComment span.author
+  {
+	font-weight:bold;
+	font-size: medium;
+  }
+  div.comments div.userComment span.body
+  {}
+  div.comments div.userComment span.timestamp
+  {
+	color:#888888;
+	font-style:italic;
+  }
+  
+  /* Overviews */
+  div.overviewContainer
+  {}
+  div.overviewContainer h1
+  {
+	width:100%;
+	border-bottom: solid 1px #FFF; 
+  }
+  div.overviewContainer h2
+  {}
+  
+  </style>
+
+  <script type="text/javascript">
+
+	defaultTitle = document.title;
+
+    $(function(){
+      $(".rootVoices").buildMenu(
+      {
+        template:"menuVoices.html",
+        additionalData:"pippo=1",
+        menuWidth:150,
+        openOnRight:false,
+        menuSelector: ".menuContainer",
+        iconPath:"ui/ico/",
+        hasImages:false,
+        fadeInTime:100,
+        fadeOutTime:300,
+        adjustLeft:2,
+        minZindex:"auto",
+        adjustTop:10,
+        opacity:.95,
+        shadow:true,
+        shadowColor:"#ccc",
+        hoverIntent:0,
+        openOnClick:false,
+        closeOnMouseOut:true,
+        closeAfter:100000
+      });
+	  
+	  if (self.location.href == top.location.href){
+        $("body").css({font:"normal 13px/16px 'trebuchet MS', verdana, sans-serif"});
+      }
+
+      $(".containerPlus").buildContainers({
+        containment:"document",
+        elementsPath:"ui/elements/"
+      });
+
+      if (!$("#demoContainer").mb_getState("closed")){
+        $('#close').fadeIn();$('#actions').fadeIn(); $("#open").hide(); $('#open_change').hide();
+      }
+	});
+
+    //this function get the id of the element that fires the context menu.
+    function testForContextMenu(el){
+      if (!el) el= $.mbMenu.lastContextMenuEl;
+      alert("the ID of the element is:   "+$(el).attr("id"));
+    }
+	
+	function loadScript()
+	{
+		//should move these down to style for each menu really
+		document.getElementById('menuAccount').style.display = 'none';
+		document.getElementById('menuNav').style.display = 'none';
+		document.getElementById('menuGames').style.display = 'none';
+		document.getElementById('menuDock').style.display = 'none';
+		document.getElementById('menuMail').style.display = 'none';
+		
+		
+		$.get("lobby.php", { page: "get", get: 'checkLogin' }, function(data){
+		  //user is already logged in
+		  if(data == "1")
+		  {
+			logonView();
+			
+			//find out what game user was in
+			$.get("lobby.php", { page: "get", get: 'whatGame'}, function(data2){
+			  if(data2 > 0)
+				pickgame(data2);
+			});
+			
+			//refresh last page
+			/*$.get("lobby.php", { page: "get", get: 'lastPage'}, function(data2){
+			  splitter = data2.split(" ");
+			  loadWindow(splitter[0],splitter[1]);
+			});
+			*/
+		  }
+		  else
+		  {
+			//open login page
+			loadWindow("login","","bxLogin");
+			
+		  }
+		  //open news
+			loadWindow("news");
+		
+		});
+		
+	}
+	
+	function logonView()
+	{
+		  //activate menus
+	  document.getElementById('menuAccount').style.display = '';
+	  document.getElementById('menuMail').style.display = '';
+	  document.getElementById('menuGames').style.display = '';
+	  //close login box
+	  $('#bxLogin').mb_close();
+	  
+	  //open welcome window  
+	  loadWindow('welcome','','bxPopup');
+	  
+	  //load user info on accounts menu
+	  $.get("lobby.php", { page: "get", get: 'userInfo'}, function(data2){
+		document.getElementById('userInfo').innerHTML = data2;
+	  });
+	  
+	  //load user's games
+	  $.get("lobby.php", { page: "get", get: 'userGames'}, function(data2){
+		document.getElementById('submenu_mygames').innerHTML = data2;
+	  });
+	}
+	
+	function pickgame(gameid)
+	{
+		//show menus
+		document.getElementById('menuNav').style.display = '';
+		document.getElementById('menuDock').style.display = '';	
+		
+		//load game welcome page
+		loadWindow('play','id='+gameid);
+		
+		//load resource window
+		window.setTimeout("loadWindow('overview','view=general','bxPopup')", 1000);
+		
+		//load facilities on submenu
+		updateFacilityMenu();
+	}
+	
+	var windowHistory = new Object;
+	
+	function loadWindow(page, args, winid, updatetitle)
+	{
+		//this is all temp, do via ajax normally
+		//
+		
+		//get page
+		page = (typeof (page) == "undefined")?'error':page;
+		//get args
+		args = (typeof (args) == "undefined")?'':'&'+args;
+		//get window id
+		winid = (typeof (winid) == "undefined" || winid == '')?'bxContex':winid;
+
+		
+		
+		//set title
+		//pageName = page; //normally thru ajax
+		pageName = getPageName(page);
+		
+		document.getElementById(winid+'Title').innerHTML = pageName;
+		//update browser title?
+		if(updatetitle == "true")
+		  document.title = pageName+" - WWC3";
+		else
+		  document.title = defaultTitle;
+		
+		
+		//set body
+		$('#'+winid).mb_changeContainerContent('lobby.php', 'page='+page+args);
+		//document.getElementById(winid+'Content').innerHTML = page+"?"+args+"\nNormally ajax material is here, but not today!";
+		
+		
+		//show window now
+		if($('#'+winid).mb_getState('closed'))
+			$('#'+winid).mb_open();
+		if($('#'+winid).mb_getState('iconized'))
+			$('#'+winid).mb_iconize();
+		
+		//save history
+		//if(winid == "bxContex")
+		setHistory(winid, 'page='+page+args);
+		
+		//raise window to focus
+		$('#'+winid).mb_BringToFront();
+	}
+	function getPageName(page)
+	{ return page;}
+	
+	function reloadOverview(view)
+	{
+		//set body
+		$('#bxPopup').mb_changeContainerContent('lobby.php', 'page=overview&view='+view);
+	}
+	
+	function setHistory(winid, page)
+	{
+	  //dont save pages that submitted forms
+	  $('#'+winid).setHistory(page);
+	}
+	
+	function submitLogin()
+	{
+	  //get username
+	  username = document.getElementById('uname').value;
+	  //get password
+	  password = document.getElementById('pword').value;
+	  
+	  $.get("lobby.php", { page: "login", uname: username, pword: password, submit: 'true' }, function(data){
+		//login successful
+		if(data == "1")
+		{
+		  logonView();
+		}
+		//problem with log in
+		else
+		{
+		  errorWindow(data);
+		}
+	  });
+	}
+	
+	function errorWindow(data)
+	{	
+	  //set body
+	  document.getElementById('errorTxt').innerHTML = data;
+	  
+	  //show window now
+	  if($('#bxError').mb_getState('closed'))
+		  $('#bxError').mb_open();
+	  if($('#bxError').mb_getState('iconized'))
+		  $('#bxError').mb_iconize();
+	  
+	}
+	
+	function submitReg()
+	{
+	  //get form data
+	  username = document.getElementById('uname').value;
+	  handle = document.getElementById('handle').value;
+	  email = document.getElementById('email').value;
+	  password = document.getElementById('pword').value;
+	  password2 = document.getElementById('pword2').value;
+	  
+	  if(password != password2)
+	  {
+		document.getElementById('regError').innerHTML = "Passwords are not the same";
+		document.getElementById('regError').style.display = "";
+		return;
+	  }
+	  
+	  $.get("lobby.php", { page: "register", uname: username, pword: password,
+			'handle': handle, 'email': email, submit: 'true' }, function(data){
+		//reg successful
+		if(data == "1")
+		{
+		  loadWindow("register","done=true");
+		}
+		//reg failed
+		else
+		{
+		  document.getElementById('regError').innerHTML = data;
+		  document.getElementById('regError').style.display = "";
+		}
+	  });
+	}
+	
+	function logout()
+	{
+	  document.getElementById('menuAccount').style.display = 'none';
+	  document.getElementById('menuMail').style.display = 'none';
+	  document.getElementById('menuGames').style.display = 'none';	
+	  document.getElementById('menuNav').style.display = 'none';
+	  document.getElementById('menuDock').style.display = 'none';
+	  
+	  //loadWindow('logout');
+	  $.get("lobby.php", {page: "logout"});
+	}
+	
+	function joingame(gameid)
+	{
+	  $.get("lobby.php", { page: "games", join: gameid}, function(data){
+		//Joined game
+		if(data == "1")
+		{
+		  //show a notification window
+		  msg = "You have joined the game. <a href='#' onclick='pickgame()'>Click here to Play!</a>";
+		  document.getElementById('bxPopupContent').innerHTML = msg;
+		  document.getElementById('bxPopupTitle').innerHTML = "Joined Game";
+		  
+		  
+		  //show window now
+		  if($('#bxPopup').mb_getState('closed'))
+			  $('#bxPopup').mb_open();
+		  if($('#bxPopup').mb_getState('iconized'))
+			  $('#bxPopup').mb_iconize();
+		  
+		  //reload games list on menu
+		  $.get("lobby.php", { page: "get", get: 'userGames'}, function(data2){
+			document.getElementById('submenu_mygames').innerHTML = data2;
+		  });
+		}
+		//failed
+		else
+		{
+		  errorWindow(data);
+		}
+	  });
+	  
+	  //load user's games
+	  $.get("lobby.php", { page: "get", get: 'userGames'}, function(data){
+		document.getElementById('submenu_mygames').innerHTML = data;
+	  });
+	}
+	
+	function updateFacilityMenu()
+	{
+	  $.get("lobby.php", { page: "get", get: 'loadFacilityMenu'}, function(data){
+		document.getElementById('submenu_buildings').innerHTML = data;
+	  });
+	}
+	
+	function submitForm(fieldNames, args, winid)
+	{
+	  //get fields
+	  fieldNames = (typeof (fieldNames) == "undefined")?'[]':fieldNames;
+	    
+	  //construct the args string to pass in request
+	  var argsStr = (typeof (args) == "undefined")?'':args+"&";  
+	
+	  //argsStr += "submit=true";
+	  for(var i in fieldNames)
+	  {
+		argsStr += "&"+fieldNames[i] + "=" +document.getElementById(fieldNames[i]).value;
+		
+		el = document.getElementById(fieldNames[i]);
+		//get value from awkward elements
+		if(el.tagName == "SELECT")	//<select>
+		{
+		  args[fieldNames[i]] = el.options[el.selectedIndex].id;
+		}
+		//normal input field
+		else
+		{
+		  args[fieldNames[i]] =document.getElementById(fieldNames[i]).value;
+		}
+		document.getElementById(fieldNames[i]).value = "";
+	  }
+	  
+	  args['submit'] = true;
+	  
+	  $.get("lobby.php", args, function(data){
+		if(data == "1")
+		{
+		  alert('posted :-)'); 
+		}
+		else
+		{
+		  errorWindow(data);
+		}
+		//document.getElementById('').innerHTML = data;
+	  });
+	}
+	</script>
+
+</head>
+<body bgcolor="#ffffff" onload="loadScript()">
+
+<div class="wrapper">
+<div class="menustrip">
+
+	<div class="rootVoices" style="float:right">
+		<div class="rootVoice {menu: 'menu_feedback', disabled:true}">Feedback</div>
+	</div>
+	<div class="rootVoices">
+		<div id="menuAccount" class="rootVoice {menu: 'menu_account', disabled:true}"  disabled="true">Account</div>
+		<div id="menuGames" class="rootVoice {menu: 'menu_games'}">Games</div>
+		<div id="menuNav" class="rootVoice {menu: 'menu_nav'}" >Nav</div>
+		<div id="menuDock" class="rootVoice {menu: 'menu_dockable'}" >Dockables</div>
+		<div id="menuMail" class="rootVoice {menu: 'menu_mail'}" >Mail</div>
+    	<div id="menuSite" class="rootVoice {menu: 'menu_main'}">About</div>
+		<div id="menuHelp" class="rootVoice {menu: 'menu_help'}" >Help</div>
+	</div>
+</div>
+<div id="dock" style="display:none;"> </div> 
+
+
+
+
+  <div id="bxContex" class="containerPlus draggable resizable {buttons:'m,i,r', skin:'black', height:'500', width:'800',dock:'dock',closed:'true'}" style="top:250px;left:400px">
+    <div class="no"><div class="ne"><div class="n"><a id="bxContexTitle" class="containerTitle">Loading...</a></div></div>
+      <div class="o"><div class="e"><div class="c">
+        <div class="mbcontainercontent" id="bxContexContent">
+          <p>Loading...</p>
+        </div>
+      </div></div></div>
+      <div class="toolbar">Loading...</div>
+	  <div >
+        <div class="so"><div class="se"><div class="s"> </div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="bxPopup" class="containerPlus draggable resizable {buttons:'m,i,r', skin:'black', height:'350', width:'300',dock:'dock',closed:'true'}" style="top:100px;left:50px">
+    <div class="no"><div class="ne"><div class="n"><a id="bxPopupTitle">Loading...</a></div></div>
+      <div class="o"><div class="e"><div class="c">
+        <div class="mbcontainercontent" id="bxPopupContent">
+          <p>Loading...</p>
+        </div>
+      </div></div></div>
+      <div >
+        <div class="so"><div class="se"><div class="s"> </div></div></div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <div id="bxError" class="containerPlus draggable {buttons:'i', skin:'black', height:'150', width:'300',dock:'dock',closed:'true'}" style="top:100px;left:50px">
+    <div class="no"><div class="ne"><div class="n">Error</div></div>
+      <div class="o"><div class="e"><div class="c">
+        <div class="mbcontainercontent error" id="bxErrorContent">
+          <span class="error" id="errorTxt"></span>
+        </div>
+      </div></div></div>
+      <div >
+        <div class="so"><div class="se"><div class="s"> </div></div></div>
+      </div>
+    </div>
+  </div>
+
+
+  
+  <div id="bxLogin" class="containerPlus {skin:'black', height:'200', width:'300',closed:'false'}" style="top:250px;left:400px">
+    <div class="no"><div class="ne"><div class="n"><a id="bxLoginTitle">Loading...</a></div></div>
+      <div class="o"><div class="e"><div class="c">
+        <div class="mbcontainercontent" id="bxLoginContent">
+		  Loading...
+        </div>
+      </div></div></div>
+      <div >
+        <div class="so"><div class="se"><div class="s"> </div></div></div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<!-- menues -->
+<div id="menu_main" class="mbmenu">
+  <a class="" onclick="loadWindow('news','','','true')">News</a>
+  <a class="" onclick="loadWindow('contact')">Contact</a>
+  <a class="" onclick="loadWindow('about')">About</a>
+  <a class="" onclick="loadWindow('staff')">Staff</a>
+</div>
+
+<div id="menu_account" class="mbmenu">
+  <a rel="text" id="userInfo"></a> 
+  <a rel="separator"> </a> 
+  
+  <a class="" onclick="loadWindow('profile')">Profile</a>
+  <a class="" onclick="loadWindow('password')">Change Password</a>
+  <a class="" onclick="loadWindow('premium')">Premium</a>
+  <a class="" onclick="loadWindow('invite')">Invites</a>
+  <a class="" onclick="loadWindow('email')">Email Details</a>
+  <a class="" onclick="loadWindow('alerts')">Alerts + Windows</a>
+
+  
+  <a rel="separator"> </a> <!-- menuvoice separator-->
+  <a class="" onclick="logout();" href="index.php">Logout</a>
+</div>
+
+<div id="menu_games" class="mbmenu">
+  <a class="{menu: 'submenu_mygames', img: 'icon_14.png'}">My Games</a>
+  <a class="" onclick="loadWindow('games','list=all')">Game List</a>
+  <a class="" onclick="loadWindow('games','list=notmy')">Join</a>
+  <a class="" onclick="loadWindow('makeGame')">Create New Game</a>
+</div>
+
+<div id="submenu_mygames" class="mbmenu">
+</div>
+
+
+<div id="menu_nav" class="mbmenu">
+	<a href="#" class="{menu: 'submenu_buildings'}" onclick="loadWindow('build')">Buildings</a>
+	<a class="{menu: 'submenu_overviews'}" onclick="loadWindow('overview')">Overview</a>
+	<a class="{menu: 'submenu_comms'}" onclick="loadWindow('comms')">Communication</a>
+	<a class="{menu: 'submenu_actions'}" onclick="loadWindow('actions')">Actions</a>
+	<a class="{menu: 'submenu_research'}" onclick="loadWindow('research')">Research</a>
+	<a class="{menu: 'submenu_team'}" onclick="loadWindow('team')">Team</a>
+	<a onclick="loadWindow('market')">Market</a>
+	<a onclick="loadWindow('bank')">Bank</a>
+</div>
+
+
+<div id="submenu_buildings" class="mbmenu">
+    <a>Manage Production</a>
+    <a rel="separator"> </a>
+    <a>Ajax load of building</a>
+    <a>Ajax load of building</a>
+    <a>Ajax load of building</a>
+    <a>Ajax load of building</a> 
+</div>
+
+<div id="submenu_overviews" class="mbmenu">
+	<a>General</a>
+	<a>Battle</a>
+	<a>Troop</a>
+	<a>Team</a>
+	<a>Production</a>
+</div>
+
+<div id="submenu_comms" class="mbmenu">
+	<a>Forum</a>
+	<a>Chat</a>
+</div>
+
+<div id="submenu_actions" class="mbmenu">
+	<a>Move</a>
+	<a>Attack</a>
+	<a>Air Raid</a>
+	<a>Spy</a>
+</div>
+
+<div id="submenu_research" class="mbmenu">
+	<a href="#" onclick="loadWindow('research','view=tree')">Tree</a>
+	<a href="#" onclick="loadWindow('research','view=queue')">Queue</a>
+</div>
+
+<div id="submenu_team" class="mbmenu">
+	<a>Forum</a>
+	<a>Orders</a>
+	<a>Generals</a>
+	<a>Set Play Style</a>
+	<a>Treaties</a>
+</div>
+
+<div id="menu_dockable" class="mbmenu">
+	<a rel="text">dododo</a>
+	<a href='#' onclick="$('#demoContainer').mb_iconize(); alert(' is iconized? '+$('#demoContainer').mb_getState('iconized')+'\n is collapsed? '+$('#demoContainer').mb_getState('collapsed')+'\n is closed? '+$('#demoContainer').mb_getState('closed'));">This</a>
+
+	<a href='#' onclick="$('#demoContainer').mb_open(); alert(' is iconized? '+$('#demoContainer').mb_getState('iconized')+'\n is collapsed? '+$('#demoContainer').mb_getState('collapsed')+'\n is closed? '+$('#demoContainer').mb_getState('closed'));">That</a>
+</div>
+
+<div id="menu_mail" class="mbmenu">
+	<a onclick="loadWindow('mail','read=all')">Read</a>
+	<a onclick="loadWindow('mail','send=new')">Send</a>
+	<a onclick="loadWindow('list','type=friend')">Friend List</a>
+	<a onclick="loadWindow('list','type=ignore')">Ignore List</a>
+</div>
+
+<div id="menu_help" class="mbmenu">
+  <a rel="text" >
+	Please remember to look over the FAQs before using the help service
+  </a>
+  <a onclick="loadWindow('faq')">FAQ</a>
+  <a onclick="loadWindow('guides')">Game Guides</a>
+  <a onclick="loadWindow('helpcentre')">Help Centre</a>
+</div>
+
+<div id="menu_feedback" class="mbmenu">
+  <a rel="text" >
+	Feel free to give us some feedback. If you want to do this anonymously you can.<br>The more you tell us, the more we can improve it!
+  </a>
+  <a onclick="loadWindow('ideas')">Ideas</a>
+  <a onclick="loadWindow('bugs')">Bugs</a>
+  <a onclick="loadWindow('question')">Ask A Question</a>
+  <a onclick="loadWindow('praise')">Thank the Staff</a>
+</div>
+<!-- end menues -->
+
+
+</body>
+</html>

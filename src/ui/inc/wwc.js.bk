@@ -1,0 +1,390 @@
+
+defaultTitle = document.title;
+
+$(function(){
+  $(".rootVoices").buildMenu(
+  {
+    template:"menuVoices.html",
+    additionalData:"pippo=1",
+    menuWidth:150,
+    openOnRight:false,
+    menuSelector: ".menuContainer",
+    iconPath:"ui/ico/",
+    hasImages:false,
+    fadeInTime:100,
+    fadeOutTime:300,
+    adjustLeft:2,
+    minZindex:"auto",
+    adjustTop:10,
+    opacity:.95,
+    shadow:true,
+    shadowColor:"#ccc",
+    hoverIntent:0,
+    openOnClick:false,
+    closeOnMouseOut:true,
+    closeAfter:100000
+  });
+  
+  if (self.location.href == top.location.href){
+    $("body").css({font:"normal 13px/16px 'trebuchet MS', verdana, sans-serif"});
+  }
+
+  $(".containerPlus").buildContainers({
+    containment:"document",
+    elementsPath:"ui/elements/"
+  });
+
+  if (!$("#demoContainer").mb_getState("closed")){
+    $('#close').fadeIn();$('#actions').fadeIn(); $("#open").hide(); $('#open_change').hide();
+  }
+});
+
+//this function get the id of the element that fires the context menu.
+function testForContextMenu(el){
+  if (!el) el= $.mbMenu.lastContextMenuEl;
+  alert("the ID of the element is:   "+$(el).attr("id"));
+}
+
+/**
+ * This function is the onload function which is called on load
+ * Mainly handles loading of menus/hiding depending on login, and
+ * also of loading sub windows
+ */
+function loadScript()
+{
+    //should move these down to style for each menu really
+    document.getElementById('menuAccount').style.display = 'none';
+    document.getElementById('menuNav').style.display = 'none';
+    document.getElementById('menuGames').style.display = 'none';
+    document.getElementById('menuDock').style.display = 'none';
+    document.getElementById('menuMail').style.display = 'none';
+    
+    
+    //test = new WWCWindow("bxTest");
+    //test.setTitle("Ahh");
+    //test.make();
+    var mainwin = makeWindow({id: 'bxContex'});
+    
+    mainwin.setSize(800,500);
+    mainwin.setPos(250,400);
+    mainwin.make();
+    //mainwin.rebuild();
+    mainwin.setBodyAjax('news');
+    mainwin.setTitle('News');
+    mainwin.show();
+    /*
+    //Check to see if user is logged in or not
+    $.get("lobby.php", { page: "get", get: 'checkLogin' }, function(data){
+      //user is already logged in
+      if(data == "1")
+      {
+        logonView();
+        
+        //find out what game user was in
+        $.get("lobby.php", { page: "get", get: 'whatGame'}, function(data2){
+          if(data2 > 0)
+            pickgame(data2);
+        });
+        
+        //refresh last page
+        /*$.get("lobby.php", { page: "get", get: 'lastPage'}, function(data2){
+          splitter = data2.split(" ");
+          loadWindow(splitter[0],splitter[1]);
+        });
+        *//*
+      }
+      //user not logged in
+      else
+      {
+        //open login page
+        //loadWindow("login","","bxLogin");
+        //var loginwin = makeWindow({title: 'Login2'});
+        //loginwin.setPos(250,400);
+        //loginwin.setSize(200,300);
+      }
+      //open news
+        loadWindow("news");
+      //loadWindow("news", "", "bxTest");
+    });
+    */
+}
+
+function logonView()
+{
+      //activate menus
+  document.getElementById('menuAccount').style.display = '';
+  document.getElementById('menuMail').style.display = '';
+  document.getElementById('menuGames').style.display = '';
+  //close login box
+  $('#bxLogin').mb_close();
+  
+  //open welcome window  
+  loadWindow('welcome',' ','bxPopup');
+  loadWindow('news','News');
+  
+  //load user info on accounts menu
+  $.get("lobby.php", { page: "get", get: 'userInfo'}, function(data2){
+    document.getElementById('userInfo').innerHTML = data2;
+  });
+  
+  //load user's games
+  $.get("lobby.php", { page: "get", get: 'userGames'}, function(data2){
+    document.getElementById('menu_games').innerHTML = data2;
+  });
+}
+
+function pickgame(gameid)
+{
+    //show menus
+    document.getElementById('menuNav').style.display = '';
+    document.getElementById('menuDock').style.display = '';	
+    
+    //load game welcome page
+    loadWindow('play','id='+gameid);
+    
+    //load resource window
+    window.setTimeout("loadWindow('overview','view=general','bxPopup')", 1000);
+    
+    //load facilities on submenu
+    updateFacilityMenu();
+}
+
+var windowHistory = new Object;
+
+function loadWindow(page, args, winid, updatetitle)
+{
+    //this is all temp, do via ajax normally
+    //
+    
+    //get page
+    page = (typeof (page) == "undefined")?'error':page;
+    //get args
+    args = (typeof (args) == "undefined")?'':'&'+args;
+    //get window id
+    winid = (typeof (winid) == "undefined" || winid == '')?'bxContex':winid;
+
+    
+    
+    //set title
+    //pageName = page; //normally thru ajax
+    pageName = getPageName(page);
+    
+    document.getElementById(winid+'Title').innerHTML = pageName;
+    //update browser title?
+    if(updatetitle == "true")
+      document.title = pageName+" - WWC3";
+    else
+      document.title = defaultTitle;
+    
+    
+    //set body
+    var el = document.getElementById(winid);
+    $('#'+winid).innerHTML = "LOADING...";
+    $('#'+winid).mb_changeContainerContent('lobby.php', 'page='+page+args);
+    //document.getElementById(winid+'Content').innerHTML = page+"?"+args+"\nNormally ajax material is here, but not today!";
+    
+    
+    //show window now
+    if($('#'+winid).mb_getState('closed'))
+        $('#'+winid).mb_open();
+    if($('#'+winid).mb_getState('iconized'))
+        $('#'+winid).mb_iconize();
+    
+    //save history
+    //if(winid == "bxContex")
+    setHistory(winid, 'page='+page+args);
+    
+    //raise window to focus
+    $('#'+winid).mb_BringToFront();
+}
+function getPageName(page)
+{
+  var title;
+  switch(page)
+  {
+    case 'news': 	title='News'; break;
+    case 'contact':	title="Contact Us"; break;	
+    default: 		title=page;
+  }
+  
+  return title;
+}
+
+function reloadOverview(view)
+{
+    //set body
+    $('#bxPopup').mb_changeContainerContent('lobby.php', 'page=overview&view='+view);
+}
+
+function setHistory(winid, page)
+{
+  //dont save pages that submitted forms
+  $('#'+winid).setHistory(page);
+}
+
+function submitLogin()
+{
+  //get username
+  username = document.getElementById('uname').value;
+  //get password
+  password = document.getElementById('pword').value;
+  
+  $.get("lobby.php", { page: "login", uname: username, pword: password, submit: 'true' }, function(data){
+    //login successful
+    if(data == "1")
+    {
+      logonView();
+    }
+    //problem with log in
+    else
+    {
+      errorWindow(data);
+    }
+  });
+}
+
+function errorWindow(data)
+{	
+  //set body
+  document.getElementById('errorTxt').innerHTML = data;
+  
+  //show window now
+  if($('#bxError').mb_getState('closed'))
+      $('#bxError').mb_open();
+  if($('#bxError').mb_getState('iconized'))
+      $('#bxError').mb_iconize();
+  
+}
+
+function submitReg()
+{
+  //get form data
+  username = document.getElementById('uname').value;
+  handle = document.getElementById('handle').value;
+  email = document.getElementById('email').value;
+  password = document.getElementById('pword').value;
+  password2 = document.getElementById('pword2').value;
+  
+  if(password != password2)
+  {
+    document.getElementById('regError').innerHTML = "Passwords are not the same";
+    document.getElementById('regError').style.display = "";
+    return;
+  }
+  
+  $.get("lobby.php", { page: "register", uname: username, pword: password,
+        'handle': handle, 'email': email, submit: 'true' }, function(data){
+    //reg successful
+    if(data == "1")
+    {
+      loadWindow("register","done=true");
+    }
+    //reg failed
+    else
+    {
+      document.getElementById('regError').innerHTML = data;
+      document.getElementById('regError').style.display = "";
+    }
+  });
+}
+
+function logout()
+{
+  document.getElementById('menuAccount').style.display = 'none';
+  document.getElementById('menuMail').style.display = 'none';
+  document.getElementById('menuGames').style.display = 'none';	
+  document.getElementById('menuNav').style.display = 'none';
+  document.getElementById('menuDock').style.display = 'none';
+  
+  //loadWindow('logout');
+  $.get("lobby.php", {page: "logout"});
+}
+
+function joingame(gameid)
+{
+  $.get("lobby.php", { page: "games", join: gameid}, function(data){
+    //Joined game
+    if(data == "1")
+    {
+      //show a notification window
+      msg = "You have joined the game. <a href='#' onclick='pickgame()'>Click here to Play!</a>";
+      document.getElementById('bxPopupContent').innerHTML = msg;
+      document.getElementById('bxPopupTitle').innerHTML = "Joined Game";
+      
+      
+      //show window now
+      if($('#bxPopup').mb_getState('closed'))
+          $('#bxPopup').mb_open();
+      if($('#bxPopup').mb_getState('iconized'))
+          $('#bxPopup').mb_iconize();
+      
+      //reload games list on menu
+      $.get("lobby.php", { page: "get", get: 'userGames'}, function(data2){
+        document.getElementById('submenu_mygames').innerHTML = data2;
+      });
+    }
+    //failed
+    else
+    {
+      errorWindow(data);
+    }
+  });
+  
+  //load user's games
+  $.get("lobby.php", { page: "get", get: 'userGames'}, function(data){
+    document.getElementById('submenu_mygames').innerHTML = data;
+  });
+}
+
+function updateFacilityMenu()
+{
+  $.get("lobby.php", { page: "get", get: 'loadFacilityMenu'}, function(data){
+    document.getElementById('submenu_buildings').innerHTML = data;
+  });
+}
+
+function submitForm(fieldNames, args, winid)
+{
+  //get fields
+  fieldNames = (typeof (fieldNames) == "undefined")?'[]':fieldNames;
+    
+  //construct the args string to pass in request
+  var argsStr = (typeof (args) == "undefined")?'':args+"&";  
+
+  //argsStr += "submit=true";
+  for(var i in fieldNames)
+  {
+    argsStr += "&"+fieldNames[i] + "=" +document.getElementById(fieldNames[i]).value;
+    
+    el = document.getElementById(fieldNames[i]);
+    //get value from awkward elements
+    if(el.tagName == "SELECT")	//<select>
+    {
+      if(el.selectedIndex < el.options.length && el.selectedIndex >= 0)
+        args[fieldNames[i]] = el.options[el.selectedIndex].id;
+    }
+    //normal input field
+    else
+    {
+      args[fieldNames[i]] =document.getElementById(fieldNames[i]).value;
+    }
+    document.getElementById(fieldNames[i]).value = "";
+  }
+  
+  args['submit'] = true;
+  
+  $.get("lobby.php", args, function(data){
+    if(data == "1")
+    {
+      alert('posted :-)'); 
+    }
+    else
+    {
+      errorWindow(data);
+    }
+    //document.getElementById('').innerHTML = data;
+  });
+}
+
+function testwindows()
+{}
