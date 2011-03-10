@@ -1,9 +1,23 @@
 <?php
-/* now in include_path
-require_once("Instance.class.php");
-require_once("GameInstance.class.php");
-require_once(CLASSPATH."base/Country.class.php");
+/*
+* License: This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 3 of the License, or (at your
+* option) any later version. This program is distributed in the hope that it
+* will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+* of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+* Public License for more details.
 */
+
+/**
+ * Description of the file
+ *
+ * @uses GameInstance	Links to the game instance this belongs to
+ *
+ * @author Leeming <a_p_leeming@hotmail.com>
+ * @version 1.0
+ * @copyright Copyright &copy; 2011, Leeming
+ */
 
 class CountryInstance extends Country
 {

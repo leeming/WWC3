@@ -1,16 +1,25 @@
 <?php
-/**
- * Would need to change database to reflect good 
- * use of this class. Similar to the team/instance 
- * classes. A Game would contain all details about
- * the game in general, like what countries/units/
- * researches etc are in use. Game instance would
- * allow multiple games with the same id to play
- * in parrallel in single instances, thus holding
- * the info about who is in the game and current
- * cycle number
- */
+/*
+* License: This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 3 of the License, or (at your
+* option) any later version. This program is distributed in the hope that it
+* will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+* of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+* Public License for more details.
+*/
 
+/**
+ * Singleton (per user) class to hold the current known state of a game
+ *
+ * TODO Needs reviewing and refactoring
+ *
+ * @uses Instance	Interface class
+ *
+ * @author Leeming <a_p_leeming@hotmail.com>
+ * @version 1.0
+ * @copyright Copyright &copy; 2011, Leeming
+ */
 class GameInstance implements Instance
 {
 	

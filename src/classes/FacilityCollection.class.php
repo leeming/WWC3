@@ -10,10 +10,11 @@
 */
 
 /**
- * Description of class
+ * Collection of Facilities
  * 
- * List of classes used by this class
+ * TODO is this class still useful?
  * 
+ * @uses ???
  * 
  * @author Leeming <a_p_leeming@hotmail.com>
  * @version 1.0

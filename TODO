@@ -1,0 +1,22 @@
+* Look into making a generic Logger class that handles std/file/firephp type logging
+
+* Better DB management?
+
+* Session handler NEEDS to be added
+
+* Licence block and common doc needs to be added to each file
+
+* Refine error handler (point users to mantis? auto mantis report?)
+
+* INC_PATH vs putting dependencies at top of each file (such as for classes)
+
+* Add support for exceptions in classes to make error handling easier
+
+* Semi Stand alone components needing attention are: Mail, News and Validation based classes  
+
+* Most of the user management is undone
+
+* Order this file into TODO categories, such as for code architecture, user management, missing game classes, library components, etc
+
+* Review if some classes are still used:
+	- FacilityCollection

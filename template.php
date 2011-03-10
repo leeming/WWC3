@@ -12,6 +12,8 @@
 /**
  * Description of the file
  *
+ * TODO Needs reviewing and refactoring
+ *
  * @author Leeming <a_p_leeming@hotmail.com>
  * @version 1.0
  * @copyright Copyright &copy; 2011, Leeming

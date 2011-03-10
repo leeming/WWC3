@@ -10,11 +10,18 @@
 */
 
 /**
- * Holds all information about a country, includes all production values
- * and also current state of country (armies present/milita/owner etc)
+ * Holds abstract top level information about a country such as it's name,
+ * default values and general knowledge. For information on the current state of
+ * a country in a particular game then use <tt>CountryInstance</tt>.
  *
- * TODO Shouldnt there be a CountryInstance class which contains all game
- * 		related	functions??? (extends)
+ * @uses ???	Surely this class uses another
+ * @uses Resource	Raw resource production of this country (without game
+ * 					setting	 modifications)
+ * 
+ * @extends MapArea
+ * @see CountryInstance
+ * 
+ * TODO Remove legacy depreated code that moved to CountryInstance
  *
  * @author Leeming <a_p_leeming@hotmail.com>
  * @version 1.0

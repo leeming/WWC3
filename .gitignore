@@ -1,6 +1,7 @@
 src/tiggerConfig.php
 src/tiggerConfig.php.old
 src/tiggerConfig.php
+src/connection.php
 backup/
 crons/
 .project

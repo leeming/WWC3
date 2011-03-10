@@ -1,19 +1,32 @@
 <?php
-/**
- * List of classes used by this class
- */
-/*  now in include_path
-require_once(CLASSPATH."base/Base.class.php");
-require_once(CLASSPATH."base/Resource.class.php");
-require_once(CLASSPATH."base/Research.class.php");
-require_once(CLASSPATH."base/Unit.class.php");
-require_once(CLASSPATH."game/CountryInstance.class.php");
+/*
+* License: This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 3 of the License, or (at your
+* option) any later version. This program is distributed in the hope that it
+* will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+* of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+* Public License for more details.
 */
 
 /**
+ * A battalion is a collection of a user's (land based) troops
+ * This class includes the methods for moving, managing and
+ * attacking, as they are all troop related.
+ * 
+ * TODO Needs reviewing & refactoring
+ * 
+ * @uses Base
+ * @uses Resource	Resources are needed for moving and attacking
+ * @uses Research	For stat modification (should this be in this class?)
+ * @uses Unit		Detailed information about units in a battalion
+ * @uses CountryInstance	Moving & Attacking purposes
  *
- * @author leeming
+ * @author Leeming <a_p_leeming@hotmail.com>
+ * @version 1.0
+ * @copyright Copyright &copy; 2011, Leeming
  */
+
 class Battalion extends Base
 {
 	public $id, $name, $location, $commander, $exp;
@@ -171,6 +184,8 @@ class Battalion extends Base
 	/**
 	 * Calculate the attack strength of battalion
 	 * using player researches/battalion level/units
+	 *
+	 * TODO Should this be here?
 	 *
 	 * @return int
 	 */

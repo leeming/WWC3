@@ -1,11 +1,25 @@
 <?php
+/*
+* License: This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 3 of the License, or (at your
+* option) any later version. This program is distributed in the hope that it
+* will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+* of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+* Public License for more details.
+*/
+
 /**
- * Class to get a collection of Mail such as getting a list of mail
- * for a user that is unread
+ * Class  to get a collection of Mail such as getting a list of mail for a user
+ * that is unread.
+ * The Mail and News classes are perfect for a new developer to help with
  *
- * @todo Not sure about the future of the Mail classes, may get external code...
- * 
- * @todo Add class to allow formatting of body text, test & add any unexpected collections
+ * TODO Not sure about the future of the Mail classes, may get external code...
+ * TODO Needs reviewing and refactoring
+ *
+ * @author Leeming <a_p_leeming@hotmail.com>
+ * @version 1.0
+ * @copyright Copyright &copy; 2011, Leeming
  */
 class MailCollection
 {

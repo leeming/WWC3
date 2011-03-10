@@ -1,6 +1,16 @@
 <?php
+/*
+* License: This program is free software; you can redistribute it and/or
+* modify it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 3 of the License, or (at your
+* option) any later version. This program is distributed in the hope that it
+* will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
+* of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+* Public License for more details.
+*/
+
 /**
- * This class holds all the information about a games settings
+ * This class holds all the information about a game settings
  *
  * @todo Need to add methods to be able to edit current setting and also
  * 		 to be able to add records into Setting_has_xxxx tables in batch
@@ -9,6 +19,12 @@
  * 		 in the database. Add a method to check if there is any problems
  * 		 with the setting config, such as including a facility that is
  * 		 required by a research which isnt included, thus never able to build
+ *
+ * TODO Needs reviewing and refactoring
+ *
+ * @author Leeming <a_p_leeming@hotmail.com>
+ * @version 1.0
+ * @copyright Copyright &copy; 2011, Leeming
  */
 class Settings
 {

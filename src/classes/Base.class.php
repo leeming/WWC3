@@ -3,15 +3,25 @@
  * Base class for many other classes which automatically sets
  * the database connection ($db) and the gameId, but only if
  * GAMEID const is set. Nevertheless game id can still be set
- * via setGame($gameId)
+ * via setGame($gameId). Also includes the logger classes
+ * 
+ * TODO Need to think about an abstract 'Logger' type class
+ * TODO Is gameId really needed in this class?
  *
- * @see setGame()
+ * @abstract
  */
 abstract class Base
 {
 	public $db;
 	public $firephp;
 	
+	/**
+	 * Parent constructor that creates references to the database
+	 * object and logging object (currently just firephp)
+	 * 
+	 * @see Firephp
+	 * @see Database
+	 */
 	function __construct()
 	{
 		global $db;

@@ -10,13 +10,14 @@
 */
 
 /**
- * List of classes used by this class
+ * Collection of countries... stil used?
+ * 
+ * TODO Verify if this class is needed
+ *
+ * @author Leeming <a_p_leeming@hotmail.com>
+ * @version 1.0
+ * @copyright Copyright &copy; 2011, Leeming
  */
-/*  now in include_path
-require_once(CLASSPATH."base/Base.class.php");
-require_once(CLASSPATH."base/Country.class.php");
-require_once(CLASSPATH."base/Game.class.php");
-*/
 
 class CountryCollection extends Base
 {
