@@ -41,74 +41,7 @@
 	</div>
 </div>
 <div id="dock" style="display:none;"> </div> 
-
-
-
-<!--
-  <div id="bxContex" class="containerPlus draggable resizable {buttons:'m,i,r', skin:'black', height:'500', width:'800',dock:'dock',closed:'true'}" style="top:250px;left:400px">
-    <div class="no"><div class="ne"><div class="n"><a id="bxContexTitle" class="containerTitle">Loading...</a></div></div>
-      <div class="o"><div class="e"><div class="c">
-        <div class="mbcontainercontent" id="bxContexContent">
-          <p>Loading...<br><a href="index.php">Click here</a> if nothing happens</p>
-        </div>
-      </div></div></div>
-      <div class="toolbar">Loading...</div>
-	  <div >
-        <div class="so"><div class="se"><div class="s"> </div></div></div>
-      </div>
-    </div>
-  </div>
-
-  <div id="bxPopup" class="containerPlus draggable resizable {buttons:'m,i,r', skin:'black', height:'350', width:'300',dock:'dock',closed:'true'}" style="top:100px;left:50px">
-    <div class="no"><div class="ne"><div class="n"><a id="bxPopupTitle">Loading...</a></div></div>
-      <div class="o"><div class="e"><div class="c">
-        <div class="mbcontainercontent" id="bxPopupContent">
-          <p>Loading...<br><a href="index.php">Click here</a> if nothing happens</p>
-        </div>
-      </div></div></div>
-      <div >
-        <div class="so"><div class="se"><div class="s"> </div></div></div>
-      </div>
-    </div>
-  </div>
-  
-  
-  <div id="bxError" class="containerPlus draggable {buttons:'i', skin:'black', height:'150', width:'300',dock:'dock',closed:'true'}" style="top:100px;left:50px">
-    <div class="no"><div class="ne"><div class="n">Error</div></div>
-      <div class="o"><div class="e"><div class="c">
-        <div class="mbcontainercontent error" id="bxErrorContent">
-          <span class="error" id="errorTxt"></span>
-        </div>
-      </div></div></div>
-      <div >
-        <div class="so"><div class="se"><div class="s"> </div></div></div>
-      </div>
-    </div>
-  </div>
-
-
-  
-  <div id="bxLogin" class="containerPlus {skin:'black', height:'200', width:'300',closed:'false'}" style="top:250px;left:400px">
-    <div class="no"><div class="ne"><div class="n"><a id="bxLoginTitle">Loading...</a></div></div>
-      <div class="o"><div class="e"><div class="c">
-        <div class="mbcontainercontent" id="bxLoginContent">
-		  Loading...
-        </div>
-      </div></div></div>
-      <div >
-        <div class="so"><div class="se"><div class="s"> </div></div></div>
-      </div>
-    </div>
-  </div> -->
-
 </div>
-
-
-
-
-
-
-
 
 
 <!-- menus -->

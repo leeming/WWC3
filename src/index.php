@@ -21,22 +21,22 @@
  */
  
 //Does session really need to be started here? see lobby.php
-session_start();
+//session_start();
 
 require_once("./tiggerConfig.php");
 
 try
 {
 	//Does this really need to be called here? see lobby.php
-    $db = new Database(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-    $db->connect();
+    //$db = new Database(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    //$db->connect();
        
     //Include UI Template
     require("ui/template.php");
     
-    //
+    //Cant remember why this is here?
     unset($_SESSION['track']);
-    $db->close();
+    //$db->close();
 }
 catch (Exception $e)
 {

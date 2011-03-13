@@ -17,17 +17,37 @@
  * the DB connection and session handling stuff
  *
  * TODO Need to add session hijacking code
+ * TODO RFC on way pages are loaded, white listing seems a bit of a pain now
+ * 	    that	     there	     are many pages and code is public anyway (no
+ *      need 	 to /hidemap to directory locations)
+ * 
  * TODO Clean up code and properly document? partition code?
+ * 
  *
  * @author Leeming <a_p_leeming@hotmail.com>
  * @version 1.0
  * @copyright Copyright &copy; 2011, Leeming
  */
 
-
-
-// TODO basic session handling NEEDS to be improved
 session_start();
+
+//Basic secure session handler
+$ss = new SecureSession();
+$ss->check_browser = true;
+$ss->check_ip_blocks = 2;
+$ss->secure_word = 'WWC_';
+$ss->regenerate_id = true; 
+
+//Check valid session
+if(!$ss->Check())
+{
+	//Session is faulty or hijacked
+	//TODO What is the best thing to do here? error page/anything else?
+	$_SESSION = array();
+	$_REQUEST['page'] = "error";
+	
+}
+
 $startTime = microtime(true);
 
 //get config file & connection

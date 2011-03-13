@@ -17,6 +17,9 @@ else
 			$errorMsg = "You need to be logged in to see this page. If you were "
 				."previously logged in, then you may have been timed out.";
 			break;
+		case 'INVALID_SESSION':
+			$errorMsg = "You login session has caused a fault, you have been logged out";
+			break;
 		case 'GAME_NOT_SET':
 			$errorMsg = "You can not view game pages when you have not entered a game";
 			break;
