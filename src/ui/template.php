@@ -165,7 +165,7 @@
 	Feel free to give us some feedback. If you want to do this anonymously you can.<br>The more you tell us, the more we can improve it!
   </a>
   <a onclick="loadWindow('ideas')">Ideas</a>
-  <a onclick="loadWindow('bugs')">Bugs</a>
+  <a target="_new" href="http://bugs.dlym.net">Bugs</a>
   <a onclick="loadWindow('question')">Ask A Question</a>
   <a onclick="loadWindow('praise')">Thank the Staff</a>
 </div>

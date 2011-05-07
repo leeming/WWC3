@@ -83,7 +83,7 @@ if(isset($args['list']))
 					print "Starting in ".Convert::secondsToReadable($game->timeUntilStart());
 				?>
 			</td>
-			<td><a href='#' onclick="loadWindow('games','view=<?=$game->id?>')">View</a></td>
+			<td><a href='#' onclick="loadWindow('games',ww(event), 'view=<?=$game->id?>')">View</a></td>
 			<td>
 				<?php
 				//if user is in game show "enter", else show "join"
@@ -106,13 +106,13 @@ if(isset($args['list']))
 		<?php
 	}
 }
-else if(Validate::isInt($args['view']) && false)
+else if(Validate::isInt($args['view']) )
 {
 	?>
 	<a href='#' onclick="loadWindow('games','list=all')">Back</a>
 	<?php
 	
-	$game = new Game($args['view']);
+	$game = GameInstance::getInstance($args['view']);
 	
 	if($game->canJoinGame($user))
 	{

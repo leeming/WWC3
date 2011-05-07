@@ -30,7 +30,8 @@ class TeamInstance extends Base
 	function __construct($id)
 	{
 		parent::__construct();
-		
+
+$this->firephp->log("Teaminstance ({$id})");	
 		if(!Validate::isInt($id))
 		{
 			trigger_error("(int)\$id expected, (".gettype($id).") passed", E_USER_ERROR);
@@ -42,6 +43,8 @@ class TeamInstance extends Base
 		
 		$this->id = $id;
 		$this->game = $result['game_id'];
+
+$this->firephp->log("Getting team");
 		$this->team = new Team($result['team_id']);
 	}
 	

@@ -139,6 +139,7 @@ function whatWindow(e)
   {
     e=window.event;
   }
+
   if (e.target)
   {
     targ=e.target;
@@ -210,7 +211,7 @@ function pickgame(gameid)
     }
     
     //load facilities on submenu
-    updateFacilityMenu();
+    //updateFacilityMenu();
 }
 
 var windowHistory = new Object;
@@ -223,7 +224,15 @@ function loadWindow(page, winid, args, extraparams)
   //fetch window object
   var thiswindow = windows[winid];
   
-  
+  //check to see if this window was found
+  if(!isset(thiswindow))
+  {
+ 	 console.log('Window not found, creating...');
+	 thiswindow = makeWindow({id:winid, x:50, y:50, width:250, height:300});
+	 thiswindow.make();
+
+  }
+
   //Sort out if there is any extra params to deal with
   if(isset(extraparams))
   {
@@ -315,7 +324,7 @@ function errorWindow(data)
         w.show();
         w.setBodyText(data);
     }
-alert(data);
+//alert(data);
   
 }
 
@@ -370,20 +379,21 @@ function joingame(gameid)
     if(data == "1")
     {
       //show a notification window
-      msg = "You have joined the game. <a href='#' onclick='pickgame()'>Click here to Play!</a>";
-      document.getElementById('bxPopupContent').innerHTML = msg;
-      document.getElementById('bxPopupTitle').innerHTML = "Joined Game";
+      msg = "You have joined the game. This should appear in a nice window but im working on that.\nYour games list should have been refreshed. Join the game by going to the 'Games' menu and clicking on the game";
+	  alert(msg);
+      //document.getElementById('bxPopupContent').innerHTML = msg;
+      //document.getElementById('bxPopupTitle').innerHTML = "Joined Game";
       
       
       //show window now
-      if($('#bxPopup').mb_getState('closed'))
-          $('#bxPopup').mb_open();
-      if($('#bxPopup').mb_getState('iconized'))
-          $('#bxPopup').mb_iconize();
+      //if($('#bxPopup').mb_getState('closed'))
+      //    $('#bxPopup').mb_open();
+      //if($('#bxPopup').mb_getState('iconized'))
+      //    $('#bxPopup').mb_iconize();
       
       //reload games list on menu
       $.get("lobby.php", { page: "get", get: 'userGames'}, function(data2){
-        document.getElementById('submenu_mygames').innerHTML = data2;
+        document.getElementById('menu_games').innerHTML = data2;
       });
     }
     //failed
@@ -406,8 +416,9 @@ function updateFacilityMenu()
   });
 }
 
-function submitForm(fieldNames, args, winid)
+function submitForm(fieldNames, args, winid, callback)
 {
+console.log('fields',fieldNames);
   //get fields
   fieldNames = (typeof (fieldNames) == "undefined")?'[]':fieldNames;
     
@@ -434,12 +445,23 @@ function submitForm(fieldNames, args, winid)
     document.getElementById(fieldNames[i]).value = "";
   }
   
-  args['submit'] = true;
-  
-  $.get("lobby.php", args, function(data){
+  argsStr += "&submit=true";
+
+  console.log("Args being posted are:",argsStr);  
+
+  $.get("lobby.php", argsStr, function(data){
     if(data == "1")
     {
-      alert('posted :-)'); 
+      //If a callback is set do callback function
+	  if(callback && typeof(callback) === "function")
+	  {
+		//no params?
+		callback();
+	  }
+	  else
+	  {
+      	alert('posted :-)'); 
+	  }
     }
     else
     {

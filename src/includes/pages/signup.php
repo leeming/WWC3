@@ -105,7 +105,12 @@ else
 	</div>
 	<div class="row">
 		<span class="submit">
-			<input type="button" id="submit" value="Register" onclick="submitReg()" />
+			<input type="button" id="submit" value="Register" 
+				onclick="submitForm(['uname','pword','handle','email'], 
+				'page=register', ww(event), 
+				function(){ 
+					alert('Account created!\nNo additional verification needed (yet) so you are free to log in and look around.'); 
+				})" />
 		</span>
 	</div>
 	</form>

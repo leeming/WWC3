@@ -41,6 +41,8 @@ class Battalion extends Base
 	{
 		parent::__construct();
 
+		$this->firephp->log("New battalion ({$id})"); 
+
 		//Validate $id is int
 		if(!Validate::isInt($id))
 		{
@@ -58,6 +60,7 @@ class Battalion extends Base
 		$this->name = $result['name'];
 		$this->commander = $result['commander'];
 		$this->exp = $result['exp'];
+		$this->firephp->log("recursion???"); 
 		$this->player = Player::getInstance($result['player_id']);
 		$this->location = CountryInstance::getInstance($this->player->getGameId(), $result['country_id']);
 		

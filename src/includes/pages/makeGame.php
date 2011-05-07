@@ -27,14 +27,14 @@ print"<u>Current Games</u><br>";
 foreach($games AS $game)
 {
 	print $game->name." (".$game->id .")";
-	print"[<a href='#' onclick=\"loadWindow('makeGame','new={$game->id}')\">New</a>]<br>";
+	print"[<a href='#' onclick=\"loadWindow('makeGame',ww(event), 'new={$game->id}')\">New</a>]<br>";
 	
 	$instances = GameCollection::getRunningInstancesOf($game);
 	foreach($instances AS $in)
 	{
 		print " |-- #".$in->id;
-		print"[<a href='#' onclick=\"loadWindow('makeGame','end={$in->id}')\">End</a>]";
-		print"[<a href='#' onclick=\"loadWindow('makeGame','restart={$in->id}')\">Restart</a>]<br>";
+		print"[<a href='#' onclick=\"loadWindow('makeGame',ww(event), 'end={$in->id}')\">End</a>]<br>";
+//		print"[<a href='#' onclick=\"loadWindow('makeGame','restart={$in->id}')\">Restart</a>]<br>";
 	}
 }
 ?>

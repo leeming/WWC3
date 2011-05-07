@@ -31,6 +31,11 @@
 
 session_start();
 
+
+//get config file & connection
+require_once("./tiggerConfig.php");
+
+/*
 //Basic secure session handler
 $ss = new SecureSession();
 $ss->check_browser = true;
@@ -45,13 +50,13 @@ if(!$ss->Check())
 	//TODO What is the best thing to do here? error page/anything else?
 	$_SESSION = array();
 	$_REQUEST['page'] = "error";
+	$args['code'] = "NOT_LOGGED_IN";
 	
 }
-
+*/
 $startTime = microtime(true);
 
-//get config file & connection
-require_once("./tiggerConfig.php");
+
 
 //Set up debugger (FirePHP)
 $firephp = FirePHP::getInstance(true);
@@ -250,7 +255,7 @@ $firephp->log($args,"Main Request query");
 //log page requests
 $_SESSION['_track'][] = array('timestamp' =>time(),
 							 'page' => $page,
-							 'pageReq' => $_REQUEST['page'],
+							 'pageReq' => isset($_REQUEST['page'])?$_REQUEST['page']:"",
 							 'request' => $args);
 
 //load page here
@@ -290,5 +295,5 @@ if(isset($user))
 //	$_SESSION['player'] = serialize($player);
 	
 $db->close();
-$firephp->info(microtime(true)-$startTime,"Page fully loaded");
+//$firephp->info(microtime(true)-$startTime,"Page fully loaded");
 ?>

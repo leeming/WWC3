@@ -31,9 +31,12 @@ class User
 	 */
 	function __construct($id)
 	{
-		global $db;
+		global $db, $firephp;
 		$this->db = &$db;
-		
+		$this->firephp = &$firephp;
+	
+		$this->firephp->log("Inside User");
+
 		//Validate $id is int
 		if(!Validate::isInt($id))
 		{
@@ -56,6 +59,7 @@ class User
 		$this->username = $result['username'];
 		$this->handle = $result['handle'];
 		$this->email = $result['email'];
+$this->firephp->log("finsihed with user");
 
 		//etc
 	}

@@ -28,6 +28,7 @@ $_SESSION['curPlayer'] = $gameList[$args['id']];
 Next cycle you will get...
 
 <?php
+//return;
 //foreach($player->getResourcesPerCycle() AS $r)
 //	print $r->name ." x".$r->qty."<br>";
 
@@ -132,5 +133,4 @@ else
 	}
 	?>
 	
-</p>
--->
+</p>-->

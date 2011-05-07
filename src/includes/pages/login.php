@@ -26,7 +26,7 @@ else
 	<div class="row">
 		<span class="label">Username</span>
 		<span class="data">
-			<input type="text" id="uname" value="cocacola999" />
+			<input type="text" id="uname" value="" />
 		</span>
 	</div>
 	<div class="row">

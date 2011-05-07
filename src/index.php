@@ -35,7 +35,7 @@ try
     require("ui/template.php");
     
     //Cant remember why this is here?
-    unset($_SESSION['track']);
+//    unset($_SESSION['track']);
     //$db->close();
 }
 catch (Exception $e)

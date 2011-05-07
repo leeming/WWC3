@@ -46,23 +46,33 @@ class Player extends Base
 			trigger_error("Player instance already exists. ALWAYS use getInstance()", E_USER_ERROR);
 			return;
 		}
-		
+	
+		//$this->firephp->log("Start of player");
+
 		$_SESSION['cache'][__CLASS__][$id] = &$this;
 		
 		$this->db->query("SELECT game_id, user_id, team_id FROM Players WHERE id='{$id}' LIMIT 1");
 		$result = $this->db->getRow();
 		
 		$this->id = $id;
+
+		//$this->firephp->log("Getting game instance");
 		$this->game = GameInstance::getInstance($result['game_id']);
+
+		//$this->firephp->log("Getting user");
 		$this->user = new User($result['user_id']);
-		
+	
+		//$this->firephp->log("Getting team instance");	
 		$this->team = new TeamInstance($result['team_id']);
 		
 		//select primary battalion
+		//$this->firephp->log("Getting bats"); 
 		$this->getBattalions();//sets internal value
+
+		//$this->firephp->log("Setting primary bat");
 		$this->selectedBattalion = $this->battalions[0];
 		
-		$this->firephp->info("end of player");
+		//$this->firephp->info("end of player");
 	}
 	
 	static function getInstance($id)
@@ -78,18 +88,18 @@ class Player extends Base
 		//Check if instance exists
 		if(isset($_SESSION['cache'][__CLASS__][$id]))
 		{
-			//$firephp->log("Player(cache)");
+			$firephp->log("Player(cache)");
 			return $_SESSION['cache'][__CLASS__][$id];
 		}
 		elseif(isset($_SESSION['singletons'][__CLASS__][$id]))
 		{
-			//$firephp->log("Player(singleton) saving to cache");
+			$firephp->log("Player(singleton) saving to cache");
 			$_SESSION['cache'][__CLASS__][$id] = unserialize($_SESSION['singletons'][__CLASS__][$id]);
 			return $_SESSION['cache'][__CLASS__][$id];
 		}
 		else
 		{
-			//$firephp->log("Player(new) saving to cache");
+			$firephp->log("Player(new) saving to cache");
 			$_SESSION['cache'][__CLASS__][$id] = new Player($id);
 			return $_SESSION['cache'][__CLASS__][$id];
 		}

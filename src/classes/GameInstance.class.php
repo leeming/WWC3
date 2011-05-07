@@ -259,7 +259,9 @@ class GameInstance implements Instance
 			$this->firephp->log("Private game and you are not invited!");
 			return 0;
 		}
-		$this->firephp->log("Post test");
+		$this->firephp->log("Userid is {$userId}");
+		$this->firephp->log("Player list is:".print_r($this->getPlayerList(),true)); 
+		
 		//check to see user not currently in game
 		if(in_array($userId, $this->getPlayerList()))
 		{
@@ -298,20 +300,22 @@ class GameInstance implements Instance
 	{
 		if($returnType == "int")
 		{
-
-			$result = $this->db->fetch_all_array("SELECT id FROM Players ".
+			//used to look at playerid instead of userid... get both
+			$result = $this->db->fetch_all_array("SELECT id,user_id FROM Players ".
 				"WHERE game_id ='{$this->id}'");
 			
 			
 			$this->playerIdList = array();
 			foreach($result AS $players)
 			{
-				$this->playerIdList[] = $players['id'];
+				$this->playerIdList[$players['id']] = $players['user_id'];
 			}
 
 			
 			return $this->playerIdList;
+		
 		}
+		//TODO GET RID OFF?????
 		else
 		{
 			$result = $this->db->fetch_all_array("SELECT id FROM Players ".

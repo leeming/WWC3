@@ -5,7 +5,7 @@ $collection = new ResearchCollection($player->game);
 if(isset($args['id']) && Validate::isInt($args['id']))
 {
 	?>
-	<p>[<a href="#" onclick="loadWindow('research','view=tree')">Back to full tree</a>]</p>
+	<p>[<a href="#" onclick="loadWindow('research',ww(event), 'view=tree')">Back to full tree</a>]</p>
 	<?php
 	$tree = $collection->getSubTree($args['id']);
 }
@@ -45,7 +45,7 @@ else
 		
 		?>
 		<tr>
-			<td style="<?=$style?>"><a href="#" onclick="loadWindow('research','view=tree&id=<?=$item->id?>')">
+			<td style="<?=$style?>"><a href="#" onclick="loadWindow('research',ww(event), 'view=tree&id=<?=$item->id?>')">
 				<?=$item->name?></a>
 			</td>
 			<td style="<?=$style?>"><?=$item->desc?></td>

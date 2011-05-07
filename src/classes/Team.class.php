@@ -25,7 +25,7 @@
  * @version 1.0
  * @copyright Copyright &copy; 2011, Leeming
  */
-/**
+
 
 class Team extends Base
 {
@@ -37,7 +37,9 @@ class Team extends Base
 	function __construct($id)
 	{
 		parent::__construct();
-		
+	
+	$this->firephp->log("in team ({$id})");
+	
 		if(!Validate::isInt($id))
 		{
 			trigger_error("(int)\$id expected, (".gettype($id).") passed", E_USER_ERROR);
@@ -84,8 +86,8 @@ class Team extends Base
 	 *
 	 * @todo Implement
 	 */
-	function capitalSet()
-	{}
+	//function capitalSet()
+	//{}
 	
 	/**
 	 * Makes a new Team, returns: -1 on error, 0 on failed mysql,
